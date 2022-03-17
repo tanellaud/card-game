@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  backend:
+    container_name: card-game-backend
+    restart: always
+    build: .
+    environment:
+      - APP_ENV=development
+      - APP_PORT=9000
+    volumes:
+      - ./src:/var/www/card-game/src
+      - ./test:/var/www/card-game/test
+    working_dir: /var/www/card-game
+    ports:
+      - "9001:9000"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+  mysql: # Example Service
+    container_name: card-game-mysql
+    restart: always
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=card-game
+      - MYSQL_PASSWORD=card-game
+      - MYSQL_DATABASE=card-game-docker
+    ports:
+    - "3308:3306"
+    volumes:
+    - card-game_mysql_data:/var/lib/mysql
+
+volumes:
+  card-game_mysql_data:
+
+
+networks:
+  default:
+    external:
+      name: card-game
