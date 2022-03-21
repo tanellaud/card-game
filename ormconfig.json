@@ -1,0 +1,16 @@
+
+  {
+  "type": "mysql",
+  "username": "user",
+  "password": "pass",
+  "database": "card-game",
+  "entities": [
+    "dist/src/**/entities/*{.js,.ts}",
+    "dist/src/**/**/entities/*{.js,.ts}"
+  ],
+  "migrationsRun": true,
+  "migrations": ["dist/migrations/*.js"],
+  "cli": {
+    "migrationsDir": "migrations"
+  }
+}

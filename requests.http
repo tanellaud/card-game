@@ -1,0 +1,16 @@
+### open a deck
+
+GET http://localhost:9000/deck
+
+### Create a new card deck
+POST http://localhost:9000/deck
+content-Type: application/json
+
+{
+    "type": "FULL",
+    "shuffled": true
+}
+
+
+### Draw a card
+GET http://localhost:9000/deck/345435
