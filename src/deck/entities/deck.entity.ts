@@ -40,6 +40,6 @@ export class Deck {
 
   @AfterInsert()
   LogInsert() {
-    console.log('inserted dekc with id', this.deckId);
+    console.log('inserted deck with id', this.deckId);
   }
 }

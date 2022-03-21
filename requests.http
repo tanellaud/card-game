@@ -1,13 +1,13 @@
 ### open a deck
 
-GET http://localhost:9000/deck/738b02c8-2372-4cbb-8c5f-19ff95bda088
+GET http://localhost:9000/api/deck/738b02c8-2372-4cbb-8c5f-19ff95bda088
 
 ### Create a new card deck
-POST http://localhost:9000/deck
+POST http://localhost:9000/api/deck
 content-Type: application/json
 
 {
     "type": "FULL",
-    "shuffled": true
+    "shuffled": false
 }
 

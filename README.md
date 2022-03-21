@@ -29,20 +29,77 @@
 ## Installation
 
 ```bash
-$ npm install
+$ npm i
 ```
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
+# run the application
+$ docker-compose up
 
-# watch mode
-$ npm run start:dev
+```
 
-# production mode
-$ npm run start:prod
+## Api documentation
+
+### Create a new Deck
+```http
+POST http://localhost:3000/api/v1/deck
+```
+| Parameter | Type | Options | Description |
+| :--- | :--- | :--- | :--- |
+| `type` | `string` | FULL/SHORT | **Required**.  |
+| `shuffled` | `boolean` | true/false | **Required**. |
+
+#### Response
+```json
+{
+    "deckId": "5adc07e1-7b74-4c6c-8020-c09ba1395d30",
+    "type": "FULL",
+    "shuffled": false,
+    "remaining": 52
+}
+```
+
+### Open a Deck
+```http
+GET http://localhost:3000/api/v1/deck/:uuid
+```
+#### Response
+```json
+{
+  "deckId": "98c6c7df-8bd6-467d-8137-63d1c7e34372",
+  "type": "FULL",
+  "shuffled": false,
+  "remaining": 52,
+  "cards": [
+    {
+      "value": 1,
+      "suite": "SPADES",
+    },
+    ...
+  ]
+}
+```
+### Draw a Card
+```http
+POST http://localhost:3000/api/v1/deck/:uuid/draw-card
+```
+| Parameter | Type | Options | Description |
+| :--- | :--- | :--- | :--- |
+| `count` | `number` |  | **Required**.  |
+
+#### Response
+```json
+{
+  "cards": [
+    {
+      "value": 1,
+      "suite": "SPADES",
+      "code": "AS"
+    }
+  ]
+}
 ```
 
 ## Test
