@@ -26,13 +26,13 @@ export class DeckController {
     return this.deckService.create(createDeckDto);
   }
 
-  @Get('/:uuid/draw-card')
+  @Post('/:uuid/draw-card')
   public async drawCard(
     @Param('uuid') uuid: string,
-    @Body() drawCardDto: DrawCardDto,
+    @Body() count: DrawCardDto,
   ) {
     return {
-      cards: await this.deckService.getTopCardsAndDelete(uuid, drawCardDto),
+      cards: await this.deckService.getDeckTopCardsAndRemove(uuid, count),
     };
   }
 }

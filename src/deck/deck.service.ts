@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Deck } from './entities/deck.entity';
 import { CreateDeckDto } from './dtos/create-deck.dto';
 import { DrawCardDto } from './dtos/draw-card.dto';
+import { shuffle } from 'lodash';
 
 @Injectable()
 export class DeckService {
@@ -25,11 +26,7 @@ export class DeckService {
       }
 
       if (deck.shuffled) {
-        function shuffle(a, b) {
-          return Math.random() - 0.5;
-        }
-
-        deck.cards = deck.cards.sort(shuffle);
+        deck.cards = shuffle(deck.cards);
       }
 
       deck.remaining = Object.keys(deck.cards).length;
@@ -67,15 +64,29 @@ export class DeckService {
     return deckModified;
   }
 
-  async getTopCardsAndDelete(uuid: string, DrawCardDto: DrawCardDto) {
+  async getDeckTopCardsAndRemove(uuid: string, drawCardDto: DrawCardDto) {
     const deck: Deck = await this.repo.findOne({
       where: {
-        uuid: uuid,
+        deckId: uuid,
       },
     });
 
     if (!deck) {
       throw new NotFoundException();
     }
+
+    const drawnCards = deck.cards.slice(0, drawCardDto.count);
+
+    const drawnCardsIds = drawnCards.map((item) => {
+      return item.id;
+    });
+
+    deck.cards = deck.cards.filter((card, index) => {
+      return card.id !== drawnCardsIds[index];
+    });
+
+    this.repo.save(deck);
+
+    return drawnCards;
   }
 }
