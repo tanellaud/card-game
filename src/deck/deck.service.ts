@@ -77,8 +77,15 @@ export class DeckService {
 
     const drawnCards = deck.cards.slice(0, drawCardDto.count);
 
-    const forDeletion = deck.cards.includes(drawnCards);
-    console.log(forDeletion);
+    const drawnCardsIds = drawnCards.map((item) => {
+      return item.id;
+    });
+
+    deck.cards = deck.cards.filter((card, index) => {
+      return card.id !== drawnCardsIds[index];
+    });
+
+    this.repo.save(deck);
 
     return drawnCards;
   }
