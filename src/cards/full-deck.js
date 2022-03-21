@@ -1,18 +1,3 @@
-import { IsString, IsBoolean, IsArray, IsInt } from 'class-validator';
-
-export class CreateDeckDto {
-  @IsString()
-  type: string;
-
-  @IsBoolean()
-  shuffled: boolean;
-
-  @IsArray()
-  cards: any = FULL_DECK;
-
-  remaining: number;
-}
-
 export const FULL_DECK = [
   {
     suit: 'hearts',

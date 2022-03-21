@@ -16,6 +16,7 @@ import { Deck } from './deck/entities/deck.entity';
       database: process.env.DB_DATABASE,
       entities: [Deck],
       migrationsRun: true,
+      synchronize: true,
     }),
     DeckModule,
   ],

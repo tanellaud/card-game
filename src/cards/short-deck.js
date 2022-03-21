@@ -1,35 +1,4 @@
-import { IsString, IsBoolean, IsArray, IsInt } from 'class-validator';
-
-export class CreateDeckDto {
-  @IsString()
-  type: string;
-
-  @IsBoolean()
-  shuffled: boolean;
-
-  @IsArray()
-  cards: any = FULL_DECK;
-
-  remaining: number;
-}
-
-export const FULL_DECK = [
-  {
-    suit: 'hearts',
-    value: 2,
-  },
-  {
-    suit: 'hearts',
-    value: 3,
-  },
-  {
-    suit: 'hearts',
-    value: 4,
-  },
-  {
-    suit: 'hearts',
-    value: 5,
-  },
+export const SHORT_DECK = [
   {
     suit: 'hearts',
     value: 6,
@@ -65,22 +34,6 @@ export const FULL_DECK = [
   {
     suit: 'hearts',
     value: 'A',
-  },
-  {
-    suit: 'diamonds',
-    value: 2,
-  },
-  {
-    suit: 'diamonds',
-    value: 3,
-  },
-  {
-    suit: 'diamonds',
-    value: 4,
-  },
-  {
-    suit: 'diamonds',
-    value: 5,
   },
   {
     suit: 'diamonds',
@@ -120,22 +73,6 @@ export const FULL_DECK = [
   },
   {
     suit: 'clubs',
-    value: 2,
-  },
-  {
-    suit: 'clubs',
-    value: 3,
-  },
-  {
-    suit: 'clubs',
-    value: 4,
-  },
-  {
-    suit: 'clubs',
-    value: 5,
-  },
-  {
-    suit: 'clubs',
     value: 6,
   },
   {
@@ -169,22 +106,6 @@ export const FULL_DECK = [
   {
     suit: 'clubs',
     value: 'A',
-  },
-  {
-    suit: 'spades',
-    value: 2,
-  },
-  {
-    suit: 'spades',
-    value: 3,
-  },
-  {
-    suit: 'spades',
-    value: 4,
-  },
-  {
-    suit: 'spades',
-    value: 5,
   },
   {
     suit: 'spades',

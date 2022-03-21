@@ -1,12 +1,14 @@
-import { Entity, Column, Generated, PrimaryGeneratedColumn } from 'typeorm';
-
-export enum DeckTypeEnum {
-  FULL = 'FULL',
-  SHORT = 'SHORT',
-}
-
+import {
+  AfterInsert,
+  Entity,
+  Column,
+  Generated,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Exclude } from 'class-transformer';
 @Entity()
 export class Deck {
+  @Exclude()
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -16,7 +18,10 @@ export class Deck {
   @Generated('uuid')
   deckId: string;
 
-  @Column()
+  @Column({
+    default: 'FULL',
+    enum: ['FULL', 'SHORT'],
+  })
   type: string;
 
   @Column({
@@ -24,8 +29,17 @@ export class Deck {
   })
   shuffled: boolean;
 
-  @Column('json', {
-    array: true,
+  @Column({
+    default: 0,
   })
-  cards: Array<any>;
+  remaining: number;
+
+  @Exclude()
+  @Column({ type: 'json', name: 'cards', default: null })
+  cards: any;
+
+  @AfterInsert()
+  LogInsert() {
+    console.log('inserted dekc with id', this.deckId);
+  }
 }
