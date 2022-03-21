@@ -74,6 +74,7 @@ GET http://localhost:3000/api/v1/deck/:uuid
   "remaining": 52,
   "cards": [
     {
+      "id": 1,
       "value": 1,
       "suite": "SPADES",
     },
@@ -94,9 +95,9 @@ POST http://localhost:3000/api/v1/deck/:uuid/draw-card
 {
   "cards": [
     {
+      "id": 1,
       "value": 1,
       "suite": "SPADES",
-      "code": "AS"
     }
   ]
 }

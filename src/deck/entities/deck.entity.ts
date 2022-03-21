@@ -20,6 +20,7 @@ export class Deck {
 
   @Column({
     default: 'FULL',
+    type: 'enum',
     enum: ['FULL', 'SHORT'],
   })
   type: string;
