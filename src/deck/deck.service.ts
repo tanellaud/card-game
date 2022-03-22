@@ -13,6 +13,10 @@ export class DeckService {
     private repo: Repository<Deck>,
   ) {}
 
+  private getRemainingCards(cards) {
+    return Object.keys(cards).length;
+  }
+
   public create(createDeckDto: CreateDeckDto) {
     try {
       const deck: Deck = this.repo.create(createDeckDto);
@@ -29,7 +33,7 @@ export class DeckService {
         deck.cards = shuffle(deck.cards);
       }
 
-      deck.remaining = Object.keys(deck.cards).length;
+      deck.remaining = this.getRemainingCards(deck.cards);
 
       return this.repo.save(deck);
     } catch (error) {
@@ -51,7 +55,7 @@ export class DeckService {
       throw new NotFoundException();
     }
 
-    const getDeckLength = Object.keys(deck.cards).length;
+    const getDeckLength = Object.keys(deck.cards);
 
     const deckModified = {
       deckId: deck.deckId,
@@ -84,6 +88,8 @@ export class DeckService {
     deck.cards = deck.cards.filter((card, index) => {
       return card.id !== drawnCardsIds[index];
     });
+
+    deck.remaining = this.getRemainingCards(deck.cards);
 
     this.repo.save(deck);
 
